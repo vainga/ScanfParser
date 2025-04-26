@@ -185,17 +185,21 @@ namespace TFLaComp_1.ParserLogic
                 _buffer.Next();
             }
 
-            // 3. Check for format string
+            // 3. Check for format string and count format specifiers
+            int formatSpecifiersCount = 0;
             if (_buffer.Current.type != LexemeType.FORMAT_STRING)
             {
                 _errors.Add("Ожидается строка формата (например, \"%d\")");
             }
             else
             {
+                string formatString = _buffer.Current.value;
+                formatSpecifiersCount = CountFormatSpecifiers(formatString);
                 _buffer.Next();
             }
 
-            // 4. Process arguments
+            // 4. Process arguments and count variables
+            int variablesCount = 0;
             while (_buffer.Current.type != LexemeType.R_BRACKET &&
                    _buffer.Current.type != LexemeType.EOF)
             {
@@ -214,6 +218,7 @@ namespace TFLaComp_1.ParserLogic
                         }
                         else
                         {
+                            variablesCount++;
                             _buffer.Next();
                         }
                     }
@@ -232,6 +237,7 @@ namespace TFLaComp_1.ParserLogic
                     }
                     else
                     {
+                        variablesCount++;
                         _buffer.Next();
                     }
                 }
@@ -262,11 +268,31 @@ namespace TFLaComp_1.ParserLogic
                 _buffer.Next();
             }
 
+            // 7. Check if number of variables matches format specifiers
+            if (formatSpecifiersCount > 0 && variablesCount != formatSpecifiersCount)
+            {
+                _errors.Add($"Количество переменных ({variablesCount}) не соответствует количеству спецификаторов в строке формата ({formatSpecifiersCount})");
+            }
+
             // Skip whitespace between statements
             while (_buffer.Current.type == LexemeType.WHITESPACE)
             {
                 _buffer.Next();
             }
+        }
+
+        // Helper method to count format specifiers in format string
+        private int CountFormatSpecifiers(string formatString)
+        {
+            // Remove quotes from format string
+            string cleanFormat = formatString.Trim('"');
+            int count = 0;
+
+            // Simple pattern to match % followed by a format specifier letter
+            var matches = Regex.Matches(cleanFormat, @"%[dfscxoulh]");
+            count = matches.Count;
+
+            return count;
         }
 
         private void SkipToNextStatement()
