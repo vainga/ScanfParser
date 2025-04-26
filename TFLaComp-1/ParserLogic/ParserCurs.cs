@@ -18,6 +18,7 @@ namespace TFLaComp_1.ParserLogic
         COMMA,              // ',' (разделитель аргументов)
         MARKS,              // кавычки (для строки формата)
         SEMICOLON,          // ';' (конец инструкции)
+        WHITESPACE,
         EOF                 // конец входных данных
     }
 
@@ -46,7 +47,9 @@ namespace TFLaComp_1.ParserLogic
             { LexemeType.VARIABLE, new Regex(@"^[a-zA-Z_][a-zA-Z0-9_]*") }, // переменная (без &)
             { LexemeType.COMMA, new Regex(@"^,") },
             { LexemeType.MARKS, new Regex(@"^""") },
-            { LexemeType.SEMICOLON, new Regex(@"^;") }
+            { LexemeType.SEMICOLON, new Regex(@"^;") },
+            { LexemeType.WHITESPACE, new Regex(@"^\s+") }
+
         };
 
         public static List<Lexeme> LexAnalyze(string expText)
@@ -132,65 +135,159 @@ namespace TFLaComp_1.ParserLogic
     public class Parser
     {
         private readonly LexemeBuffer _buffer;
+        private readonly List<string> _errors;
 
         public Parser(List<Lexeme> lexemes)
         {
             _buffer = new LexemeBuffer(lexemes);
+            _errors = new List<string>();
         }
 
-        public void Parse()
+        public List<string> Parse()
         {
-            // 1. Проверяем, что первый токен — это `scanf`
+            _errors.Clear();
+
+            while (_buffer.Current.type != LexemeType.EOF)
+            {
+                ParseSingleStatement();
+            }
+
+            if (_errors.Count == 0)
+            {
+                _errors.Add("Синтаксический анализ завершен успешно! 🎉");
+            }
+
+            return _errors;
+        }
+
+        private void ParseSingleStatement()
+        {
+            // Reset position to start of statement for error collection
+            int startPos = _buffer.Position;
+
+            // 1. Check for 'scanf'
             if (_buffer.Current.type != LexemeType.SCANFCALL)
-                throw new Exception("Ожидается вызов 'scanf'.");
+            {
+                _errors.Add("Ожидается вызов 'scanf'");
+                SkipToNextStatement();
+                return;
+            }
 
             _buffer.Next();
 
-            // 2. Проверяем открывающую скобку `(`
+            // 2. Check for '('
             if (_buffer.Current.type != LexemeType.L_BRACKET)
-                throw new Exception("Ожидается '(' после 'scanf'.");
+            {
+                _errors.Add("Ожидается '(' после 'scanf'");
+            }
+            else
+            {
+                _buffer.Next();
+            }
 
-            _buffer.Next();
-
-            // 3. Проверяем строку формата
+            // 3. Check for format string
             if (_buffer.Current.type != LexemeType.FORMAT_STRING)
-                throw new Exception("Ожидается строка формата (например, \"%d\").");
+            {
+                _errors.Add("Ожидается строка формата (например, \"%d\")");
+            }
+            else
+            {
+                _buffer.Next();
+            }
 
-            _buffer.Next();
-
-            // 4. Обрабатываем аргументы
-            while (_buffer.Current.type != LexemeType.R_BRACKET)
+            // 4. Process arguments
+            while (_buffer.Current.type != LexemeType.R_BRACKET &&
+                   _buffer.Current.type != LexemeType.EOF)
             {
                 if (_buffer.Current.type == LexemeType.COMMA)
                 {
                     _buffer.Next();
+
+                    // After comma, expect either &variable or another argument
+                    if (_buffer.Current.type == LexemeType.AMPERSAND)
+                    {
+                        _buffer.Next();
+
+                        if (_buffer.Current.type != LexemeType.VARIABLE)
+                        {
+                            _errors.Add("Ожидается имя переменной после '&'");
+                        }
+                        else
+                        {
+                            _buffer.Next();
+                        }
+                    }
+                    else
+                    {
+                        _errors.Add("Ожидается '&' перед именем переменной");
+                    }
                 }
                 else if (_buffer.Current.type == LexemeType.AMPERSAND)
                 {
                     _buffer.Next();
 
                     if (_buffer.Current.type != LexemeType.VARIABLE)
-                        throw new Exception("Ожидается имя переменной после '&'.");
-
-                    _buffer.Next();
+                    {
+                        _errors.Add("Ожидается имя переменной после '&'");
+                    }
+                    else
+                    {
+                        _buffer.Next();
+                    }
                 }
-                else
+                else if (_buffer.Current.type != LexemeType.R_BRACKET)
                 {
-                    throw new Exception($"Неожиданный символ: {_buffer.Current.value}");
+                    _errors.Add($"Неожиданный символ: {_buffer.Current.value}");
+                    _buffer.Next();
                 }
             }
 
-            // 5. Проверяем закрывающую скобку `)`
+            // 5. Check for closing bracket
             if (_buffer.Current.type != LexemeType.R_BRACKET)
-                throw new Exception("Ожидается ')' в конце вызова scanf.");
+            {
+                _errors.Add("Ожидается ')' в конце вызова scanf");
+            }
+            else
+            {
+                _buffer.Next();
+            }
 
-            _buffer.Next();
-
-            // 6. Проверяем точку с запятой `;`
+            // 6. Check for semicolon
             if (_buffer.Current.type != LexemeType.SEMICOLON)
-                throw new Exception("Ожидается ';' после вызова scanf.");
+            {
+                _errors.Add("Ожидается ';' после вызова scanf");
+            }
+            else
+            {
+                _buffer.Next();
+            }
 
-            Console.WriteLine("Синтаксический анализ завершен успешно! 🎉");
+            // Skip whitespace between statements
+            while (_buffer.Current.type == LexemeType.WHITESPACE)
+            {
+                _buffer.Next();
+            }
+        }
+
+        private void SkipToNextStatement()
+        {
+            // Skip until we find a semicolon or EOF
+            while (_buffer.Current.type != LexemeType.SEMICOLON &&
+                   _buffer.Current.type != LexemeType.EOF)
+            {
+                _buffer.Next();
+            }
+
+            if (_buffer.Current.type == LexemeType.SEMICOLON)
+            {
+                _buffer.Next();
+            }
+
+            // Skip whitespace
+            while (_buffer.Current.type == LexemeType.WHITESPACE)
+            {
+                _buffer.Next();
+            }
         }
     }
 }

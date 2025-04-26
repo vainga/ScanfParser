@@ -172,37 +172,50 @@ namespace ScanfParser
         {
             try
             {
-                List<Lexeme> lexemes = ParserCurs.LexAnalyze(richTextBoxInput.Text); // Лексический анализ
-                TFLaComp_1.ParserLogic.Parser parser = new TFLaComp_1.ParserLogic.Parser(lexemes);
-                parser.Parse();
-                PrintOutput(lexemes, "Синтаксический анализ завершен успешно! 🎉");
+                List<Lexeme> lexemes = ParserCurs.LexAnalyze(richTextBoxInput.Text);
+                var parser = new TFLaComp_1.ParserLogic.Parser(lexemes);
+                var errors = parser.Parse();
+
+                PrintOutput(lexemes, errors);
             }
             catch (Exception ex)
             {
-                PrintOutput(new List<Lexeme>(), $"Ошибка: {ex.Message}");
+                PrintOutput(new List<Lexeme>(), new List<string> { $"Ошибка: {ex.Message}" });
             }
         }
 
-        private void PrintOutput(List<Lexeme> lexemes, string statusMessage)
+        private void PrintOutput(List<Lexeme> lexemes, List<string> errorMessages)
         {
             ClearOutput();
 
-            // Добавляем колонки для отображения лексем
+            // Add columns for lexemes
             dataGridViewOutput.Columns.Add("LexemeType", "Тип лексемы");
             dataGridViewOutput.Columns.Add("Value", "Значение");
 
-            // Выводим все лексемы
+            // Output all lexemes
             foreach (var lexeme in lexemes)
             {
                 dataGridViewOutput.Rows.Add(lexeme.type.ToString(), lexeme.value);
             }
 
-            // Добавляем строку с результатом проверки
-            dataGridViewOutput.Rows.Add("STATUS", statusMessage);
+            // Output all errors
+            if (errorMessages.Count == 1 && errorMessages[0].StartsWith("Синтаксический анализ завершен успешно"))
+            {
+                dataGridViewOutput.Rows.Add("STATUS", errorMessages[0]);
+                dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                for (int i = 0; i < errorMessages.Count; i++)
+                {
+                    string prefix = errorMessages.Count > 1 ? $"{i + 1}) " : "";
+                    dataGridViewOutput.Rows.Add(i == 0 ? "STATUS" : "", prefix + errorMessages[i]);
+                }
 
-            // Настраиваем внешний вид
+                dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - errorMessages.Count].DefaultCellStyle.BackColor = Color.LightPink;
+            }
+
             dataGridViewOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGreen;
             dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - 1].DefaultCellStyle.Font = new Font(dataGridViewOutput.Font, FontStyle.Bold);
         }
 
