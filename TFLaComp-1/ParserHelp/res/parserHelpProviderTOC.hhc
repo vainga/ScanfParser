@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="&Ocirc;&agrave;&eacute;&euml;">
+		<param name="Local" value="file.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="&Iuml;&eth;&agrave;&acirc;&ecirc;&agrave;">
+		<param name="Local" value="edit.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="&Ograve;&aring;&ecirc;&ntilde;&ograve;">
+		<param name="Local" value="text.htm">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Iuml;&icirc;&ntilde;&ograve;&agrave;&iacute;&icirc;&acirc;&ecirc;&agrave; &ccedil;&agrave;&auml;&agrave;&divide;&egrave;">
+			<param name="Local" value="problem.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Atilde;&eth;&agrave;&igrave;&igrave;&agrave;&ograve;&egrave;&ecirc;&agrave;">
+			<param name="Local" value="grammar.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Ecirc;&euml;&agrave;&ntilde;&ntilde;&egrave;&ocirc;&egrave;&ecirc;&agrave;&ouml;&egrave;&yuml; &atilde;&eth;&agrave;&igrave;&igrave;&agrave;&ograve;&egrave;&ecirc;&egrave;">
+			<param name="Local" value="grammarclass.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Igrave;&aring;&ograve;&icirc;&auml; &agrave;&iacute;&agrave;&euml;&egrave;&ccedil;&agrave;">
+			<param name="Local" value="analysis.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Auml;&egrave;&agrave;&atilde;&iacute;&icirc;&ntilde;&ograve;&egrave;&ecirc;&agrave; &egrave; &iacute;&aring;&eacute;&ograve;&eth;&agrave;&euml;&egrave;&ccedil;&agrave;&ouml;&egrave;&yuml; &icirc;&oslash;&egrave;&aacute;&icirc;&ecirc;">
+			<param name="Local" value="diagnostics.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Ograve;&aring;&ntilde;&ograve;&icirc;&acirc;&ucirc;&eacute; &iuml;&eth;&egrave;&igrave;&aring;&eth;">
+			<param name="Local" value="testexample.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Ntilde;&iuml;&egrave;&ntilde;&icirc;&ecirc; &euml;&egrave;&ograve;&aring;&eth;&agrave;&ograve;&oacute;&eth;&ucirc;">
+			<param name="Local" value="literature.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Egrave;&ntilde;&otilde;&icirc;&auml;&iacute;&ucirc;&eacute; &ecirc;&icirc;&auml; &iuml;&eth;&icirc;&atilde;&eth;&agrave;&igrave;&igrave;&ucirc;">
+			<param name="Local" value="sourcecode.htm">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="&Iuml;&oacute;&ntilde;&ecirc;">
+		<param name="Local" value="start.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="&Icirc; &iuml;&eth;&icirc;&atilde;&eth;&agrave;&igrave;&igrave;&aring;">
+		<param name="Local" value="help.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>

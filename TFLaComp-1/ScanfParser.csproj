@@ -1,0 +1,120 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <RootNamespace>TFLaComp_1</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ParserHelp\res\analysis.htm" />
+    <None Remove="ParserHelp\res\diagnostics.htm" />
+    <None Remove="ParserHelp\res\edit.htm" />
+    <None Remove="ParserHelp\res\file.htm" />
+    <None Remove="ParserHelp\res\grammar.htm" />
+    <None Remove="ParserHelp\res\grammarclass.htm" />
+    <None Remove="ParserHelp\res\help.htm" />
+    <None Remove="ParserHelp\res\Index.hhk" />
+    <None Remove="ParserHelp\res\literature.htm" />
+    <None Remove="ParserHelp\res\parserHelpProvider.chm" />
+    <None Remove="ParserHelp\res\parserHelpProvider.chw" />
+    <None Remove="ParserHelp\res\parserHelpProvider.hhp" />
+    <None Remove="ParserHelp\res\parserHelpProviderTOC.hhc" />
+    <None Remove="ParserHelp\res\problem.htm" />
+    <None Remove="ParserHelp\res\sourcecode.htm" />
+    <None Remove="ParserHelp\res\start.htm" />
+    <None Remove="ParserHelp\res\testexample.htm" />
+    <None Remove="ParserHelp\res\text.htm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ParserHelp\res\analysis.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\diagnostics.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\edit.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\file.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\grammar.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\grammarclass.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\help.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\Index.hhk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\literature.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\parserHelpProvider.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\parserHelpProvider.chw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\parserHelpProvider.hhp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\parserHelpProviderTOC.hhc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\problem.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\sourcecode.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\start.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\testexample.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ParserHelp\res\text.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="parserHelpProvider\Index.hhk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="parserHelpProvider\parserHelpProvider.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="parserHelpProvider\parserHelpProvider.hhp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="parserHelpProvider\parserHelpProviderTOC.hhc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

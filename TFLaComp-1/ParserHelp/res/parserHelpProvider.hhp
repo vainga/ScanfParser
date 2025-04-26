@@ -1,0 +1,20 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=parserHelpProvider.chm
+Contents file=parserHelpProviderTOC.hhc
+Default topic=help.htm
+Display compile progress=Yes
+Index file=Index.hhk
+Language=0x419 Русский (Россия)
+Title=Парсер
+
+
+[FILES]
+file.htm
+edit.htm
+help.htm
+start.htm
+text.htm
+
+[INFOTYPES]
+
