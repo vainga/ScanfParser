@@ -4,7 +4,7 @@ using ScanfParser.Functional;
 using ScanfParser.ParserHelp;
 using ScanfParser.RegExParser;
 using ScanfParser.ResultLog;
-using TFLaComp_1.ParserLogic;
+using ScanfParser.ParserLogic;
 
 namespace ScanfParser
 {
@@ -172,8 +172,8 @@ namespace ScanfParser
         {
             try
             {
-                List<Lexeme> lexemes = ParserCurs.LexAnalyze(richTextBoxInput.Text);
-                var parser = new TFLaComp_1.ParserLogic.Parser(lexemes);
+                List<Lexeme> lexemes = Lexer.LexAnalyze(richTextBoxInput.Text);
+                var parser = new Parser(lexemes);
                 var errors = parser.Parse();
 
                 PrintOutput(lexemes, errors);
@@ -188,35 +188,38 @@ namespace ScanfParser
         {
             ClearOutput();
 
-            // Add columns for lexemes
-            dataGridViewOutput.Columns.Add("LexemeType", "Тип лексемы");
-            dataGridViewOutput.Columns.Add("Value", "Значение");
+            // Добавляем колонки для отображения ошибок
+            dataGridViewOutput.Columns.Add("Position", "Позиция");
+            dataGridViewOutput.Columns.Add("Error", "Ошибка");
 
-            // Output all lexemes
-            foreach (var lexeme in lexemes)
-            {
-                dataGridViewOutput.Rows.Add(lexeme.type.ToString(), lexeme.value);
-            }
-
-            // Output all errors
             if (errorMessages.Count == 1 && errorMessages[0].StartsWith("Синтаксический анализ завершен успешно"))
             {
-                dataGridViewOutput.Rows.Add("STATUS", errorMessages[0]);
-                dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGreen;
+                dataGridViewOutput.Rows.Add("", errorMessages[0]);
+                dataGridViewOutput.Rows[0].DefaultCellStyle.BackColor = Color.LightGreen;
             }
             else
             {
-                for (int i = 0; i < errorMessages.Count; i++)
+                foreach (var error in errorMessages)
                 {
-                    string prefix = errorMessages.Count > 1 ? $"{i + 1}) " : "";
-                    dataGridViewOutput.Rows.Add(i == 0 ? "STATUS" : "", prefix + errorMessages[i]);
+                    var parts = error.Split(new[] { ": " }, 2, StringSplitOptions.None);
+                    if (parts.Length == 2)
+                    {
+                        dataGridViewOutput.Rows.Add(parts[0], parts[1]);
+                    }
+                    else
+                    {
+                        dataGridViewOutput.Rows.Add("", error);
+                    }
                 }
-
-                dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - errorMessages.Count].DefaultCellStyle.BackColor = Color.LightPink;
+                if (dataGridViewOutput.Rows.Count > 0)
+                {
+                    dataGridViewOutput.Rows[0].DefaultCellStyle.BackColor = Color.LightPink;
+                }
             }
 
             dataGridViewOutput.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewOutput.Rows[dataGridViewOutput.Rows.Count - 1].DefaultCellStyle.Font = new Font(dataGridViewOutput.Font, FontStyle.Bold);
+            dataGridViewOutput.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewOutput.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private void ClearOutput()
