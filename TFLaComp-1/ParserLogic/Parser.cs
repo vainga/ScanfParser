@@ -46,15 +46,26 @@ namespace ScanfParser.RegExParser
         public List<string> Parse()
         {
             _errors.Clear();
+            bool foundScanf = false;
 
             while (_buffer.Current.type != LexemeType.EOF)
             {
+                if (_buffer.Current.type == LexemeType.SCANFCALL)
+                {
+                    foundScanf = true;
+                }
+
                 ParseSingleStatement();
+            }
+
+            if (!foundScanf)
+            {
+                //_errors.Add(new ParseError(ErrorType.Expected, "Ожидается вызов 'scanf'", 0));
             }
 
             if (_errors.Count == 0)
             {
-                return new List<string> { "Синтаксический анализ завершен успешно! 🎉" };
+                return new List<string> { "Синтаксический анализ завершен успешно!" };
             }
 
             List<string> formatted = new();
@@ -63,6 +74,7 @@ namespace ScanfParser.RegExParser
 
             return formatted;
         }
+
 
         private void ParseSingleStatement()
         {
@@ -144,9 +156,13 @@ namespace ScanfParser.RegExParser
                 }
                 else
                 {
+                    if (_buffer.Current.type == LexemeType.R_BRACKET || _buffer.Current.type == LexemeType.SEMICOLON)
+                        break;
+
                     AddError(ErrorType.Delete, $"Удалить неожиданный символ: {_buffer.Current.value}", _buffer.Position);
                     _buffer.Next();
                 }
+
             }
 
             Expect(LexemeType.R_BRACKET, "Ожидается ')' в конце вызова scanf", ErrorType.Expected);
@@ -165,8 +181,6 @@ namespace ScanfParser.RegExParser
                         $"Удалить {variablesCount - formatSpecifiersCount} лишнюю(ие) переменную(ые)", startPos);
                 }
             }
-
-            SkipWhitespace();
         }
 
 
@@ -214,19 +228,39 @@ namespace ScanfParser.RegExParser
             _errors.Add(new ParseError(type, message, charPosition));
         }
 
-        private void SkipWhitespace()
+        private int GetFormatCharPosition(string fullFormatString, string specifier)
         {
-            while (_buffer.Current.type == LexemeType.WHITESPACE)
-            {
-                _buffer.Next();
-            }
+            int index = fullFormatString.IndexOf(specifier, StringComparison.Ordinal);
+            return index >= 0 ? index : 0;
         }
+
 
         private int CountFormatSpecifiers(string formatString)
         {
             string cleanFormat = formatString.Trim('"');
-            var matches = Regex.Matches(cleanFormat, @"%[dcf]");
-            return matches.Count;
+
+            var allSpecifiers = Regex.Matches(cleanFormat, @"%[a-zA-Z]");
+
+            int validCount = 0;
+            foreach (Match match in allSpecifiers)
+            {
+                string spec = match.Value;
+
+                if (spec is "%d" or "%c" or "%f")
+                {
+                    validCount++;
+                }
+                else
+                {
+                    _errors.Add(new ParseError(
+                        ErrorType.Replace,
+                        $"Неверный спецификатор формата '{spec}', замените на %c, %d, %f",
+                        GetFormatCharPosition(formatString, spec)));
+                }
+            }
+
+            return validCount;
         }
+
     }
 }

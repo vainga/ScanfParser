@@ -454,10 +454,5 @@ namespace ScanfParser
             undo.Enabled = richTextBoxInput.CanUndo;
             redo.Enabled = richTextBoxInput.CanRedo;
         }
-
-        private void курсачToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

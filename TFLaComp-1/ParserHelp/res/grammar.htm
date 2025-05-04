@@ -2,10 +2,71 @@
 <HTML>
 <HEAD>
 <meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
-<Title>Грамматика</Title>
+<Title>Грамматика scanf</Title>
 </HEAD>
 <BODY>
-Грамматика
+
+<h1>Формальное определение грамматики функции scanf</h1>
+
+<h2>Грамматика G[<SCANF>] в нотации Хомского:</h2>
+
+<h3>Продукции P:</h3>
+<ol>
+    <li>&lt;scanf-call&gt; > 'scanf' &lt;braces-content&gt; ';'</li>
+    <li>&lt;braces-content&gt; > '(' &lt;format-string&gt; &lt;arguments&gt; ')'</li>
+    <li>&lt;format-string&gt; > '"' &lt;format-char&gt; '"'</li>
+    <li>&lt;format-char&gt; > ?</li>
+    <li>&lt;format-char&gt; > &lt;char&gt;</li>
+    <li>&lt;format-char&gt; > "%" &lt;specifier&gt;</li>
+    <li>&lt;arguments&gt; > ?</li>
+    <li>&lt;arguments&gt; > ',' '&' &lt;name&gt; &lt;more-arguments&gt;</li>
+    <li>&lt;more-arguments&gt; > ?</li>
+    <li>&lt;more-arguments&gt; > ',' '&' &lt;name&gt; &lt;more-arguments&gt;</li>
+    <li>&lt;name&gt; > &lt;letter&gt; &lt;name-tail&gt;</li>
+    <li>&lt;name-tail&gt; > ?</li>
+    <li>&lt;name-tail&gt; > &lt;digit&gt; &lt;name-tail&gt; | &lt;letter&gt; &lt;name-tail&gt;</li>
+</ol>
+
+<h3>Терминальные символы:</h3>
+<ul>
+    <li>&lt;digit&gt; > "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"</li>
+    <li>&lt;letter&gt; > "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"</li>
+    <li>&lt;char&gt; > любой символ, кроме '"' (включая буквы, цифры, !, @ и др.)</li>
+    <li>&lt;specifier&gt; > "d" | "f" | "c"</li>
+</ul>
+
+<h2>Составляющие грамматики G[&lt;SCANF&gt;]:</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Компонент</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>S (начальный символ)</td>
+        <td>&lt;scanf-call&gt;</td>
+    </tr>
+    <tr>
+        <td>V<sub>T</sub> (терминалы)</td>
+        <td>{'scanf', '(', ')', '"', '%', '&', ',', ';', '0', ..., '9',<br>
+            'a', ..., 'z', 'A', ..., 'Z', 'd', 'f', 'c', ' ', '!', '@', ...<br>
+            (любой символ, кроме '"')}
+        </td>
+    </tr>
+    <tr>
+        <td>V<sub>N</sub> (нетерминалы)</td>
+        <td>{&lt;SCANF&gt;, &lt;BC&gt;, &lt;FS&gt;, &lt;FC&gt;, &lt;A&gt;,<br>
+            &lt;MA&gt;, &lt;N&gt;, &lt;L&gt;, &lt;D&gt;, &lt;C&gt;, &lt;SP&gt;}
+        </td>
+    </tr>
+</table>
+
+<h3>Обозначения:</h3>
+<ul>
+    <li>? - пустая строка</li>
+    <li>| - альтернатива (или)</li>
+    <li>> - выводится в</li>
+</ul>
 
 </BODY>
 </HTML>

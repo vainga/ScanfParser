@@ -2,10 +2,96 @@
 <HTML>
 <HEAD>
 <meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
-<Title>Классификация грамматики</Title>
+<Title>Классификация грамматики scanf</Title>
 </HEAD>
 <BODY>
-Классификация грамматики
+
+<h1>Классификация грамматики G[‹SCANF›]</h1>
+
+<h2>Тип грамматики:</h2>
+<p>Согласно классификации Хомского, грамматика G[‹SCANF›] является <strong>контекстно-свободной</strong>.</p>
+<p>Правила представлены в <strong>праворекурсивной форме</strong>.</p>
+
+<h2>Продукции грамматики:</h2>
+<ol>
+    <li>&lt;SC&gt; > 'scanf' &lt;BC&gt; ';'</li>
+    <li>&lt;BC&gt; > '(' &lt;FS&gt; &lt;A&gt; ')'</li>
+    <li>&lt;FS&gt; > '"' &lt;FC&gt; '"'</li>
+    <li>&lt;FC&gt; > ?</li>
+    <li>&lt;FC&gt; > &lt;C&gt;</li>
+    <li>&lt;FC&gt; > "%" &lt;SP&gt;</li>
+    <li>&lt;A&gt; > ?</li>
+    <li>&lt;A&gt; > ',' '&' &lt;N&gt; &lt;MA&gt;</li>
+    <li>&lt;MA&gt; > ?</li>
+    <li>&lt;MA&gt; > ',' '&' &lt;N&gt; &lt;MA&gt;</li>
+    <li>&lt;N&gt; > &lt;L&gt; &lt;NT&gt;</li>
+    <li>&lt;NT&gt; > ?</li>
+    <li>&lt;NT&gt; > &lt;D&gt; &lt;NT&gt; | &lt;L&gt; &lt;NT&gt;</li>
+</ol>
+
+<h2>Сокращения нетерминалов:</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Сокращение</th>
+        <th>Полная форма</th>
+    </tr>
+    <tr>
+        <td>&lt;SC&gt;</td>
+        <td>&lt;scanf-call&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;BC&gt;</td>
+        <td>&lt;braces-content&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;FS&gt;</td>
+        <td>&lt;format-string&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;FC&gt;</td>
+        <td>&lt;format-char&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;SP&gt;</td>
+        <td>&lt;specifier&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;A&gt;</td>
+        <td>&lt;arguments&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;N&gt;</td>
+        <td>&lt;name&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;MA&gt;</td>
+        <td>&lt;more-arguments&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;NT&gt;</td>
+        <td>&lt;name-tail&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;L&gt;</td>
+        <td>&lt;letter&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;D&gt;</td>
+        <td>&lt;digit&gt;</td>
+    </tr>
+    <tr>
+        <td>&lt;C&gt;</td>
+        <td>&lt;char&gt;</td>
+    </tr>
+</table>
+
+<h2>Особенности грамматики:</h2>
+<ul>
+    <li>Все продукции имеют единственный нетерминал в левой части</li>
+    <li>Рекурсия используется только в правой части правил</li>
+    <li>Грамматика допускает пустые цепочки (?-правила)</li>
+    <li>Соответствует определению КС-грамматики типа 2 по Хомскому</li>
+</ul>
 
 </BODY>
 </HTML>

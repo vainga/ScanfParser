@@ -64,6 +64,9 @@ namespace ScanfParser.ParserLogic
 
                 foreach (var pattern in LexemePatterns)
                 {
+                    if (pattern.Key == LexemeType.WHITESPACE)
+                        continue;
+
                     Match match = pattern.Value.Match(remainingText);
                     if (match.Success)
                     {
@@ -89,6 +92,7 @@ namespace ScanfParser.ParserLogic
             lexemes.Add(new Lexeme(LexemeType.EOF, ""));
             return lexemes;
         }
+
     }
 
     public class LexemeBuffer

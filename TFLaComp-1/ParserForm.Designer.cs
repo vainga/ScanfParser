@@ -58,7 +58,6 @@
             refToolStripMenuItem = new ToolStripMenuItem();
             callHelpToolStripMenuItem = new ToolStripMenuItem();
             aboutCodeToolStripMenuItem = new ToolStripMenuItem();
-            курсачToolStripMenuItem = new ToolStripMenuItem();
             file = new Button();
             open = new Button();
             save = new Button();
@@ -79,7 +78,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editingToolStripMenuItem, textToolStripMenuItem, StartToolStripMenuItem, refToolStripMenuItem, курсачToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editingToolStripMenuItem, textToolStripMenuItem, StartToolStripMenuItem, refToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 2, 0, 2);
@@ -97,35 +96,35 @@
             // makeToolStripMenuItem
             // 
             makeToolStripMenuItem.Name = "makeToolStripMenuItem";
-            makeToolStripMenuItem.Size = new Size(153, 22);
+            makeToolStripMenuItem.Size = new Size(180, 22);
             makeToolStripMenuItem.Text = "Создать";
             makeToolStripMenuItem.Click += makeToolStripMenuItem_Click;
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(153, 22);
+            openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "Открыть";
             openToolStripMenuItem.Click += openToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(153, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Сохранить";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // saveAssToolStripMenuItem
             // 
             saveAssToolStripMenuItem.Name = "saveAssToolStripMenuItem";
-            saveAssToolStripMenuItem.Size = new Size(153, 22);
+            saveAssToolStripMenuItem.Size = new Size(180, 22);
             saveAssToolStripMenuItem.Text = "Сохранить как";
             saveAssToolStripMenuItem.Click += saveAsToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(153, 22);
+            exitToolStripMenuItem.Size = new Size(180, 22);
             exitToolStripMenuItem.Text = "Выход";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -275,13 +274,6 @@
             aboutCodeToolStripMenuItem.Size = new Size(156, 22);
             aboutCodeToolStripMenuItem.Text = "О программе";
             aboutCodeToolStripMenuItem.Click += aboutCodeToolStripMenuItem_Click;
-            // 
-            // курсачToolStripMenuItem
-            // 
-            курсачToolStripMenuItem.Name = "курсачToolStripMenuItem";
-            курсачToolStripMenuItem.Size = new Size(58, 20);
-            курсачToolStripMenuItem.Text = "Курсач";
-            курсачToolStripMenuItem.Click += курсачToolStripMenuItem_Click;
             // 
             // file
             // 
@@ -525,6 +517,5 @@
         internal Button paste;
         private ToolTip toolTip1;
         private DataGridView dataGridViewOutput;
-        private ToolStripMenuItem курсачToolStripMenuItem;
     }
 }
