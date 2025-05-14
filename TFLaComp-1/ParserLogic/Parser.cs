@@ -105,6 +105,13 @@ namespace ScanfParser.RegExParser
                 string formatString = _buffer.Current.value;
                 formatSpecifiersCount = CountFormatSpecifiers(formatString);
                 _buffer.Next();
+
+                if (formatSpecifiersCount > 0 && _buffer.Current.type != LexemeType.COMMA &&
+                _buffer.Current.type != LexemeType.R_BRACKET)
+                {
+                    AddError(ErrorType.Insert, "Добавить запятую после строки формата", _buffer.Position);
+                    AddCorrection(LexemeType.COMMA, ",");
+                }
             }
             else
             {
