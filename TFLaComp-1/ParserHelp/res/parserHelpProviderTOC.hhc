@@ -22,6 +22,14 @@
 		</OBJECT>
 	<UL>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&szlig;&ccedil;&ucirc;&ecirc;">
+			<param name="Local" value="language.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="&Dstrok;&aring;&ecirc;&oacute;&eth;&ntilde;&egrave;&acirc;&iacute;&ucirc;&eacute; &ntilde;&iuml;&oacute;&ntilde;&ecirc;">
+			<param name="Local" value="recursion_down.htm">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="&Iuml;&icirc;&ntilde;&ograve;&agrave;&iacute;&icirc;&acirc;&ecirc;&agrave; &ccedil;&agrave;&auml;&agrave;&divide;&egrave;">
 			<param name="Local" value="problem.htm">
 			</OBJECT>

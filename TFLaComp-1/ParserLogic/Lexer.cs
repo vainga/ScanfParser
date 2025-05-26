@@ -19,6 +19,7 @@ namespace ScanfParser.ParserLogic
         MARKS,              // кавычки (для строки формата)
         SEMICOLON,          // ';' (конец инструкции)
         WHITESPACE,
+        UNKNOWN,
         EOF                 // конец входных данных
     }
 
@@ -85,7 +86,8 @@ namespace ScanfParser.ParserLogic
                         pos++;
                         continue;
                     }
-                    throw new Exception($"Unexpected character at position {pos}: '{expText[pos]}'");
+                    lexemes.Add(new Lexeme(LexemeType.UNKNOWN, expText[pos].ToString()));
+                    pos++;
                 }
             }
 

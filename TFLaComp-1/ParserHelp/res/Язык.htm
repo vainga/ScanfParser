@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<Title>Примеры использования scanf</Title>
+</HEAD>
+<BODY>
+<h2>Минимальные варианты:</h2>
+<pre>
+scanf("");
+</pre>
+
+<h2>С пустой строкой формата и аргументами:</h2>
+<pre>
+scanf("", &x);
+scanf("", &x, &y);
+scanf("", &variable123);
+</pre>
+
+<h2>Со спецификаторами формата:</h2>
+<pre>
+scanf("%d");
+scanf("%s", &name);
+scanf("%d", &x);
+scanf("%d %f", &x, &y);
+</pre>
+
+<h2>С обычными символами в формате:</h2>
+<pre>
+scanf("Hello");
+scanf("Введите число:", &x);
+</pre>
+
+<h2>Сложные примеры:</h2>
+<pre>
+scanf("%d %s %f", &number, &text, &decimal);
+scanf("Имя: %s Возраст: %d", &name, &age);
+scanf("", &var1, &var2, &var3);
+</pre>
+</BODY>
+</HTML>

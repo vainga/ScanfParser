@@ -188,32 +188,31 @@ namespace ScanfParser
         {
             ClearOutput();
 
-            // Добавляем колонки для отображения ошибок
             dataGridViewOutput.Columns.Add("Position", "Позиция");
             dataGridViewOutput.Columns.Add("Error", "Ошибка");
 
-            if (errorMessages.Count == 1 && errorMessages[0].StartsWith("Синтаксический анализ завершен успешно"))
+            foreach (var error in errorMessages)
             {
-                dataGridViewOutput.Rows.Add("", errorMessages[0]);
-                dataGridViewOutput.Rows[0].DefaultCellStyle.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                foreach (var error in errorMessages)
+                var parts = error.Split(new[] { ": " }, 2, StringSplitOptions.None);
+                if (parts.Length == 2)
                 {
-                    var parts = error.Split(new[] { ": " }, 2, StringSplitOptions.None);
-                    if (parts.Length == 2)
-                    {
-                        dataGridViewOutput.Rows.Add(parts[0], parts[1]);
-                    }
+                    int rowIndex = dataGridViewOutput.Rows.Add(parts[0], parts[1]);
+                    if (parts[1].StartsWith("Синтаксический анализ завершен успешно"))
+                        dataGridViewOutput.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
+                    else if (parts[1].StartsWith("Исправленная строка"))
+                        dataGridViewOutput.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
                     else
-                    {
-                        dataGridViewOutput.Rows.Add("", error);
-                    }
+                        dataGridViewOutput.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightPink;
                 }
-                if (dataGridViewOutput.Rows.Count > 0)
+                else
                 {
-                    dataGridViewOutput.Rows[0].DefaultCellStyle.BackColor = Color.LightPink;
+                    int rowIndex = dataGridViewOutput.Rows.Add("", error);
+                    if (error.StartsWith("Синтаксический анализ завершен успешно"))
+                        dataGridViewOutput.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
+                    else if (error.StartsWith("Исправленная строка"))
+                        dataGridViewOutput.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
+                    else
+                        dataGridViewOutput.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightPink;
                 }
             }
 
@@ -221,6 +220,7 @@ namespace ScanfParser
             dataGridViewOutput.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewOutput.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
+
 
         private void ClearOutput()
         {
